@@ -1,48 +1,51 @@
 package com.onlineshop.springbootonlineshop.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 
-@Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private UserDetailsService userDetailsService;
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig {
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin(formLogin -> formLogin
+                // configure login
+                .loginPage("/login")
+                .usernameParameter("account")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+        ).logout(logout -> logout
+                // configure logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
+                .invalidateHttpSession(true)
+        ).authorizeHttpRequests(authorize -> authorize
+                // configure URL authorization
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .mvcMatchers("/signup").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/issues/").hasAuthority("readIssue")
+                .mvcMatchers(HttpMethod.GET, "/issue/new").hasAuthority("writeIssue")
+                .mvcMatchers(HttpMethod.POST, "/issues/").hasAuthority("writeIssue")
+                .mvcMatchers("/users").hasAuthority("manageUser")
+                .antMatchers("/static/**").permitAll()
+                .anyRequest().authenticated()
+        );
+        return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/resources/**", "/registration").permitAll()
-                    .antMatchers("/launcher/**").permitAll()
-                    .antMatchers("/index/**").permitAll()
-                    .antMatchers("/home/**").authenticated()
-                    .antMatchers("/static/**").permitAll()
-                    .antMatchers("/api/test/**").authenticated()
-                .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll();
-    }
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-//    }
 }

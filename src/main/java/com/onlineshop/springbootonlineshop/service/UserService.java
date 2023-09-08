@@ -1,19 +1,15 @@
-
 package com.onlineshop.springbootonlineshop.service;
 
 
 import com.onlineshop.springbootonlineshop.entity.User;
 
+import java.util.List;
+
+
 public interface UserService {
-    void save(User user);
 
-    void update(User user);
+    public void register(User user, String roleName);
 
-    User findByUsername(String username);
+    public List<User> findAll();
 
-//    void checkUniqueDuty(User user, String duty);
-
-//    void updateDuty(User currentUser,String duty, boolean status);
-
-    void checkSecurity(String currentUser, String username);
 }
