@@ -1,5 +1,6 @@
 package com.onlineshop.springbootonlineshop.controller;
 
+
 import com.onlineshop.springbootonlineshop.entity.Issue;
 import com.onlineshop.springbootonlineshop.security.UserPrincipal;
 import com.onlineshop.springbootonlineshop.service.IssueService;
@@ -23,12 +24,12 @@ public class IssueController {
     public String list(Model model) {
         List<Issue> issues = issueService.findAll();
         model.addAttribute("issues", issues);
-        return "issue/list";
+        return "issue/th_list";
     }
 
     @GetMapping("/issue/new")
     public String newIssue() {
-        return "issue/newIssue";
+        return "issue/th_newIssue";
     }
 
     @PostMapping("/issues/")

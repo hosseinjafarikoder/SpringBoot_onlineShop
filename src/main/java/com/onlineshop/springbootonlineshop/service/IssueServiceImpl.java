@@ -1,8 +1,8 @@
-package com.onlineshop.springbootonlineshop.service.impl;
+package com.onlineshop.springbootonlineshop.service;
+
 
 import com.onlineshop.springbootonlineshop.entity.Issue;
 import com.onlineshop.springbootonlineshop.repository.IssueRepository;
-import com.onlineshop.springbootonlineshop.service.IssueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;

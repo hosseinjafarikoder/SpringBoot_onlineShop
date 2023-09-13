@@ -17,11 +17,13 @@ public class SignupController {
 
     @GetMapping("/signup")
     public String index() {
-        return "signup/index";
+        return "signup/th_index";
     }
 
     @PostMapping("/signup")
     public String signup(User user, @RequestParam("role") String roleName) {
+        System.out.println(user);
+        System.out.println(roleName);
         userService.register(user, roleName);
         return "redirect:/login";
     }

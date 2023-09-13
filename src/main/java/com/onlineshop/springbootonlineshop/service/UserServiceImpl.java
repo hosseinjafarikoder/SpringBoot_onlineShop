@@ -1,8 +1,8 @@
-package com.onlineshop.springbootonlineshop.service.impl;
+package com.onlineshop.springbootonlineshop.service;
+
 
 import com.onlineshop.springbootonlineshop.entity.User;
 import com.onlineshop.springbootonlineshop.repository.UserRepository;
-import com.onlineshop.springbootonlineshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     public void register(User user, String roleName) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        System.out.println(roleName);
         userRepository.register(user, roleName);
     }
 

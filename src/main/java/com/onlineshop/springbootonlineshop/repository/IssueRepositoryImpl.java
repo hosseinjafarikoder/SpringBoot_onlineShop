@@ -1,9 +1,8 @@
-package com.onlineshop.springbootonlineshop.repository.impl;
+package com.onlineshop.springbootonlineshop.repository;
 
 
 import com.onlineshop.springbootonlineshop.entity.Issue;
 import com.onlineshop.springbootonlineshop.entity.User;
-import com.onlineshop.springbootonlineshop.repository.IssueRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

@@ -1,9 +1,8 @@
-package com.onlineshop.springbootonlineshop.repository.impl;
+package com.onlineshop.springbootonlineshop.repository;
 
 
 import com.onlineshop.springbootonlineshop.entity.Role;
 import com.onlineshop.springbootonlineshop.entity.User;
-import com.onlineshop.springbootonlineshop.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -27,12 +26,8 @@ public class UserRepositoryImpl implements UserRepository {
         Role role = entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :name", Role.class)
                 .setParameter("name", roleName)
                 .getSingleResult();
-        //todo i change this piece of code cause of java 17
         user.setRoles(Collections.singleton(role));
-/*        user.setRoles(new HashSet<>() {{
-            add(role);
-        }});
- */
+        System.out.println(role);
         entityManager.merge(user);
     }
 

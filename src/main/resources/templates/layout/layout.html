@@ -6,6 +6,7 @@
 <head>
     <link th:href="@{/webjars/semantic-ui/2.1.6/dist/semantic.min.css}" href="https://cdn.jsdelivr.net/semantic-ui/2.1.6/semantic.min.css" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/example.css}" href="../../static/css/example.css" rel="stylesheet" type="text/css"/>
+<!--    <link th:href="@{/css/example.css}" href="/static/css/example.css" rel="stylesheet" type="text/css"/>-->
     <meta charset="utf-8">
 </head>
 <body>
@@ -14,21 +15,21 @@
         <a href="#" class="header item">
             RBAC Example
         </a>
-        <a th:href="@{/}" href="../index.html" class="item"
+        <a th:href="@{/}" href="../th_index.html" class="item"
            sec:authorize="isAuthenticated()">
             Home
         </a>
-        <a th:href="@{/issues/}" href="../issue/list.html" class="item"
+        <a th:href="@{/issues/}" href="../issue/th_list.html" class="item"
            sec:authorize="isAuthenticated() and hasAuthority('readIssue')">
             Issue
         </a>
-        <a th:href="@{/users/}" href="../userAdmin/list.html" class="item"
+        <a th:href="@{/users/}" href="../userAdmin/th_list.html" class="item"
            sec:authorize="isAuthenticated() and hasAuthority('manageUser')">
             Users
         </a>
 
         <div class="right item">
-            <form method="post" th:action="@{/logout}" action="../login/index.html">
+            <form method="post" th:action="@{/logout}" action="../login/th_index.html">
                 <button class="ui button" type="submit">
                     <i class="ui sign out icon"></i>Logout
                 </button>

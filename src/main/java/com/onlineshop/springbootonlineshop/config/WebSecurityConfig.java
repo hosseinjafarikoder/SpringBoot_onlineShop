@@ -1,5 +1,6 @@
 package com.onlineshop.springbootonlineshop.config;
 
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -34,6 +35,8 @@ public class WebSecurityConfig {
                 // configure URL authorization
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .mvcMatchers("/signup").permitAll()
+                .mvcMatchers("/leaf/**").permitAll()
+                .mvcMatchers("/settings/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/issues/").hasAuthority("readIssue")
                 .mvcMatchers(HttpMethod.GET, "/issue/new").hasAuthority("writeIssue")
                 .mvcMatchers(HttpMethod.POST, "/issues/").hasAuthority("writeIssue")
@@ -49,3 +52,8 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
+
+
+
+
