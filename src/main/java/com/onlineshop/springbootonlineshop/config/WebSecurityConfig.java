@@ -41,6 +41,7 @@ public class WebSecurityConfig {
                 .mvcMatchers(HttpMethod.GET, "/issue/new").hasAuthority("writeIssue")
                 .mvcMatchers(HttpMethod.POST, "/issues/").hasAuthority("writeIssue")
                 .mvcMatchers("/users").hasAuthority("manageUser")
+                .mvcMatchers("/admin/**").hasAuthority("manageUser")
                 .antMatchers("/static/**").permitAll()
                 .anyRequest().authenticated()
         );

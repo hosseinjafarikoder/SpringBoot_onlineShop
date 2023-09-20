@@ -48,4 +48,8 @@ public class Permission {
                 || (anotherPermission.permissionId == null && anotherPermission.name != null && (anotherPermission.name.equals(this.name)));
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
